@@ -1,0 +1,36 @@
+# React 原理
+
+- 函数式编程
+  - 纯函数
+  - 不可变值
+- vdom 和 diff
+  - h 函数
+  - vnode 数据结构
+  - patch 函数
+  - diff
+    - 只比较同一层级，不跨级比较
+    - tag 不相同，直接删掉重建，不再深度比较
+    - tag 和 key， 两者都相同，则认为是相同节点，不再深度比较
+
+- JSX 本质
+  - JSX 等同于 Vue 的模板
+  - React.createElement
+- 合成事件
+  - 目的：
+    - 更好的兼容性和跨平台
+    - 挂载到根节点，减少内存消耗，避免频繁解绑
+    - 方便事件统一管理（如事务机制）
+- setState batchUpdate
+  - setState 的主流程
+  - batchUpdate 机制 isBacthingUpdates
+    - 能命中bacthUPdate机制的情况：
+      - 生命周期和他调用的函数
+      - React 中注册的事件和他调用的函数
+      - React 可以管理的入口
+    - 不能命中的：
+      - setTimeout、setInterval等
+      - 自定义 DOM 事件
+      - React 管理不到的入口
+  - transaction （事务）机制
+- 组件渲染过程
+- 前端路由原理
