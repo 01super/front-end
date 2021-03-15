@@ -1,3 +1,6 @@
+import { test } from "./utils";
+const r = test("333");
+console.log("r: ", r);
 console.log("home");
 let a = 12;
 const b = () => {
