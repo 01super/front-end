@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+    <script>
+      const box = document.querySelector(".box");
+      function handleDrag(e) {
+        e.preventDefault();
+        if (e.type !== "drop") return;
+        console.log(e.dataTransfer.files);
+        console.log(box);
+      }
+      box.addEventListener("dragenter", handleDrag);
+      box.addEventListener("dragover", handleDrag);
+      box.addEventListener("drop", handleDrag);
+      document.addEventListener("visibilitychange", (e) => {
+        console.log(e);
+        const notification = new Notification("title text", {
+          body: "body text",
+          image: "img/path",
+          vibrate: true, // 震动
+        });
+        notification.onclick = () => {
+          notification.close(); // 关闭
+        };
+        notification.onclose = () => {}; // 消失或close()时触发
+        notification.onerror = () => {};
+        notification.onshow = () => {};
+      });
+    </script>
+  </body>
+</html>

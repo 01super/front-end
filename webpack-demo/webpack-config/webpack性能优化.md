@@ -20,3 +20,9 @@
 - 热更新
   - HotModuleReplacementPlugin
 - DllPlugin
+  - 用处：
+  前端框架如 Vue React 体积较大，构建较慢
+  较稳定，不长升级版本
+  同一个版本只构建一次即可，不用每次都重新构建
+  - 两步： DllPlugin 打包出 dll 文件；DLLReferencePlugin 使用 dll文件
+  - 
