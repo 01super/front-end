@@ -3,6 +3,10 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HappyPack = require("happypack");
 const ParallelUglifyPlugin = require("webpack-parallel-uglify-plugin");
+const {
+  optimize: { ModuleConcatenationPlugin },
+} = require("webpack");
+
 // 几种 hash 的区别：
 // 1、hash：
 // 是跟整个项目的构建相关，只要项目里有文件更改，整个项目构建的hash值都会更改，并且全部文件都共用相同的hash值
@@ -25,6 +29,11 @@ module.exports = {
   output: {
     filename: "[name].[contenthash:8].js",
     path: path.resolve(__dirname, "../dist"),
+  },
+  resolve:{
+    // 辅助开启 Scope Hosting 的配置
+    // 针对 npm 中第三方模块优先采用 jsnext:next 中指向 ES6 模块化语法的文件
+    mainFields: ['jsnext:main', 'browser', 'main']
   },
   module: {
     rules: [
@@ -58,6 +67,8 @@ module.exports = {
       chunks: ["home"], //  只引用 home.js
       template: path.resolve(__dirname, "../src/index.html"),
     }),
+    // 开启 Scope Hosting
+    new ModuleConcatenationPlugin(),
     new HappyPack({
       id: "babel",
       loaders: ["babel-loader?cacheDirectory"],
