@@ -11,7 +11,19 @@ module.exports = {
       },
     ],
   ],
-  plugins: [],
+  plugins: [
+    [
+      // 解决 babel-polyfill 会污染全局环境的问题：
+      "@babel/plugin-transform-runtime",
+      {
+        absoluteRuntime: false,
+        corejs: 3,
+        helpers: true,
+        regenerator: true,
+        useESModules: false,
+      },
+    ],
+  ],
 };
 
 // babel-polyfill
@@ -21,3 +33,6 @@ module.exports = {
 // 建议直接使用 core-js 和 regenerator
 
 // @babel/polyfill 支持新语法，但是文件大，需要配置按需引入
+
+// babel-polyfill 的问题：会污染全局环境，自己独立开发一个系统无所谓，开发个库最好解决这个问题
+// 解决方法：使用 @babel/runtime
