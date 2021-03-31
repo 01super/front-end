@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>demo</title>
+</head>
+<body>
+  <main class="main"></main>
+  <script>
+    const el = document.querySelector('.main');
+    const frage = document.createDocumentFragment();
+    for(let i=1; i<11; i++) {
+      const a = document.createElement('a');
+      a.setAttribute('value', i);
+      a.innerHTML = i + '<br />';
+      a.onclick = function() {
+        console.log(this.getAttribute('value'), i);
+      }
+      frage.appendChild(a)
+    }
+    el.appendChild(frage)
+  </script>
+</body>
+</html>

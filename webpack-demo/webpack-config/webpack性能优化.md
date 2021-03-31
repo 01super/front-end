@@ -48,3 +48,41 @@
         2. Commonjs 动态引入，执行时引入
         3. 只有 ES6 Module 才能静态分析，实现 Tree-Shaking
   8. Scope Hosting(多个函数的内容放到一个作用域中，创建函数作用域少，减少内存占用，运行更快，代码可读性更好)
+
+## 面试问题
+
+- 前端为何需要进行打包构建
+  1. 体积更小（Tree-Shaking、压缩、合并），加载更快
+  2. 编译高级语法（TS、ES6+、模块化、scss、less）
+  3. 兼容性和错误检查（polyfill、postcss、eslint）
+  4. 统一、高效的开发环境
+  5. 统一的构建流程和产出标准
+  6. 集成公司构建规范（提测、上线等）
+
+- babel 和 webpack 的区别
+  1. babel - js 新语法编译工具，不关心模块化
+  2. webpack - 打包构建工具，多个loader 和 plugin 的集合
+
+- 如何产出一个lib
+
+- babel-polyfill 和 babel-runtime 的区别
+  1. babel-polyfill 会污染全局
+  2. babel-runtime 不会污染全局
+  3. 产出第三方 lib 要用 babel-runtime
+
+- webpack 优化构建速度
+  1. 优化babel-loader
+  2. IgnorePlugin
+  3. noParse
+  4. happyPack
+  5. ParallelUglifyPlugin
+  6. 自动刷新
+  7. 热更新
+  8. DllPlugin
+  9. base64
+  10. bundle 加 hash
+  11. 懒加载
+  12. 提取公共代码
+  13. 使用 CDN 加速
+  14. production
+  15. Scope Hosting
