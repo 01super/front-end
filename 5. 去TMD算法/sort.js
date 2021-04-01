@@ -15,8 +15,32 @@ function bubbleSort(a) {
       }
     }
   }
+  return a;
 }
 
 const arr = [123, 34, 654, 23, 45, 257, 1, 75];
-bubbleSort(arr);
-console.log(arr);
+// console.log(bubbleSort(arr));
+
+// 选择排序：
+// 1. 在数据中找到最小的，放到队列的首位
+// 2. 从剩余的数据中找到最小的，放到以排队列的末尾
+// 3. 重复第二个步骤，直到排序完成
+
+function selectionSort(a) {
+  let len = a.length;
+  let minIndex;
+  for (let i = 0; i < len - 1; i++) {
+    // 最前的位置
+    minIndex = i;
+    // 最前的数据与后面的每一个数字做对比
+    for (let j = i + 1; j < len; j++) {
+      if (a[j] < a[minIndex]) {
+        minIndex = j;
+      }
+    }
+    // 上面循环完，便找到了最小的那个数，用最小那个数与排序后的最后一个数做交换
+    [a[minIndex], a[i]] = [a[i], a[minIndex]];
+  }
+  return a;
+}
+console.log(selectionSort(arr));
