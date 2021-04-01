@@ -8,15 +8,15 @@
 // 4. 重复 1-3，直到排序完成
 
 function bubbleSort(a) {
-  for (let i = 0; i < a.length; i++) {
-    for (let j = i + 1; j < i; j++) {
-      if (a[i] > a[j]) {
-        [a[i], a[j]] = [a[j], a[i]];
+  for (let i = 0; i < a.length - 1; i++) {
+    for (let j = 0; j < a.length - 1 - i; j++) {
+      if (a[j] > a[j + 1]) {
+        [a[j], a[j + 1]] = [a[j + 1], a[j]];
       }
     }
   }
 }
 
-const arr = [123, 34, 654, 23, 45, 257, 75];
+const arr = [123, 34, 654, 23, 45, 257, 1, 75];
 bubbleSort(arr);
 console.log(arr);
