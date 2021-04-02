@@ -18,7 +18,7 @@ function bubbleSort(a) {
   return a;
 }
 
-const arr = [123, 34, 654, 23, 45, 257, 1, 75];
+const arr = [123, 34, 654, 23, 45, 257, 1, 23, 75];
 // console.log(bubbleSort(arr));
 
 // 选择排序：
@@ -43,4 +43,23 @@ function selectionSort(a) {
   }
   return a;
 }
-console.log(selectionSort(arr));
+// console.log(selectionSort(arr));
+
+// 插入排序：
+// 将待排序序列第一个元素看做一个有序序列，把第二个元素到最后一个元素当成是未排序序列
+// 从头到尾依次扫描未排序序列，将扫描到的每个元素插入有序序列的适当位置
+
+function insertionSort(a) {
+  let preIndex, current;
+  for (let i = 1; i < a.length; i++) {
+    preIndex = i - 1;
+    current = a[i];
+    while (preIndex >= 0 && a[preIndex] > current) {
+      a[preIndex + 1] = a[preIndex];
+      preIndex--;
+    }
+    a[preIndex + 1] = current;
+  }
+  return a;
+}
+console.log(insertionSort(arr));
