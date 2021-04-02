@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>float 布局</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      /* 万能清除浮动 */
+      .clearfix {
+        zoom: 1;
+      }
+      .clearfix::after {
+        content: '';
+        display: block;
+        clear: both;
+        height: 0;
+        overflow: hidden;
+      }
+      .main {
+        padding: 0 200px;
+        overflow: hidden;
+      }
+      .main .float-left {
+        float: left;
+      }
+      .main .left {
+        position: relative;
+        right: 200px;
+        width: 200px;
+        background-color: aqua;
+        /* 往左拉，但是在第二行，但实际是在往上面拉，拉了整个父级宽度的距离，也就是center的宽度 */
+        margin-left: -100%;
+      }
+      .main .right {
+        width: 200px;
+        background-color: blue;
+        /* 右侧元素向左移，其实也相当于自生宽度变小，当边到自生宽度时，相当于不占位置，便上去了 */
+        margin-right: -200px;
+      }
+      .main .center {
+        width: 100%;
+        background-color: blueviolet;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <h1>float 圣杯布局和双飞翼布局的目的</h1>
+      <p>三栏布局，中间一栏最先加载和渲染（标签在前面）</p>
+      <p>两侧内容固定，中间内容随着宽度自适应</p>
+      <p>一般用于 PC 网页</p>
+    </nav>
+    <main class="main">
+      <div class="center float-left">center</div>
+      <div class="left float-left">left</div>
+      <div class="right float-left">right</div>
+    </main>
+    <h1>flex 不会中间一栏最先加载</h1>
+    <main class="flex">
+      <div class="left">left</div>
+      <div class="center">center</div>
+      <div class="right">right</div>
+    </main>
+  </body>
+  <style>
+    .flex {
+      display: flex;
+      justify-content: space-between;
+    }
+    .flex .left {
+      background-color: blueviolet;
+      width: 200px;
+    }
+    .flex .center {
+      background-color: lawngreen;
+      flex-grow: 1;
+    }
+    .flex .right {
+      background-color: gold;
+      width: 200px;
+    }
+  </style>
+</html>
