@@ -45,3 +45,12 @@
 
 - 自动转换为字符串: 加法运算时,当一个值为字符串，另一个值为非字符串，则后者转为字符串。
 - 一元运算符也会把运算子转成数值：+'abc' // NaN，'abc' // NaN，+true // 1，-false // 0
+
+# 杂
+
+## 事件 event.target 和 event.currentTarget 的区别
+
+```
+event.target返回触发事件的元素
+event.currentTarget返回绑定事件的元素
+```
