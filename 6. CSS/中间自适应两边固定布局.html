@@ -12,11 +12,11 @@
       }
       /* 万能清除浮动 */
       .clearfix {
-        zoom: 1;
+        *zoom: 1;
       }
       .clearfix::after {
-        content: '';
-        display: block;
+        content: "";
+        display: table;
         clear: both;
         height: 0;
         overflow: hidden;
@@ -56,7 +56,7 @@
       <p>一般用于 PC 网页</p>
     </nav>
     <main class="main">
-      <div class="center float-left">center</div>
+      <div class="center float-left">center 圣杯布局</div>
       <div class="left float-left">left</div>
       <div class="right float-left">right</div>
     </main>
