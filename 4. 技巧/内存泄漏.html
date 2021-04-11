@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>内存泄漏</title>
+  </head>
+  <body>
+    <h1>如何确定内存泄漏的位置'</h1>
+    <code>https://mp.weixin.qq.com/s/5PwqCbYvwtBHQBqyENJf1g</code>
+    <p>使用 Memory 里面的 heap snapshot 记录两次，然后对比两次的不同</p>
+    <br />
+    <h2>1. 闭包使用不当</h2>
+    <button onclick="myClick()">执行fn1函数</button>
+    <script>
+      function fn1() {
+        let a = new Array(10000); // 这里设置了一个很大的数组对象
+        a.fill({ test111: "hello world" });
+        let b = 3;
+        function fn2() {
+          let c = [1, 2, 3];
+        }
+        fn2();
+        return a;
+      }
+      let res = [];
+      function myClick() {
+        res.push(fn1());
+      }
+    </script>
+    <h2>2. 使用全局变量</h2>
+    <script>
+      function fnTest() {
+        a = 12;
+        console.log(a);
+      }
+      fnTest();
+    </script>
+    <h2>3. 分离的 DOM 节点</h2>
+    <p>移除的 DOM 在某处还保持着引用，导致没有被释放</p>
+    <p>可以在 Memory 里面的筛选框中输入 detached 来搜索</p>
+    <div id="root">
+      <div class="child">我是子元素</div>
+      <button class="btn">移除</button>
+    </div>
+    <script>
+      let btn = document.querySelector(".btn");
+      let child = document.querySelector(".child");
+      let root = document.querySelector("#root");
+      btn.addEventListener("click", function () {
+        console.log(this);
+        root.removeChild(child);
+      });
+    </script>
+    <h2>4. 控制台的打印</h2>
+    <h2>5. 遗忘的定时器</h2>
+  </body>
+</html>
