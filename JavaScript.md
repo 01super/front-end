@@ -63,3 +63,19 @@ event.currentTarget返回绑定事件的元素
 2. 函数类型
 3. 引用数据类型，都识别为 object，包括 null
 ```
+
+## async 和 Promise
+
+``` JavaScript
+   // async 函数返回一个 Promise 对象
+   async function() {
+      return 100; // 相当于 return Promise.resolve(100)
+   }
+   !(async function() {
+      const res = await 100; // 相当于 await Promise.resolve(100)
+      console.log(res);  // 100
+      const p = Promise.resolve(200);
+      const res1 = await p;  // await 相当于 Promise 的 then
+      console.log('res1: ', res1); // 200
+   })()
+```

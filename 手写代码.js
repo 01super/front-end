@@ -137,3 +137,89 @@ function log() {
   console.log(new Date().getTime());
 }
 window.onscroll = debounce(log);
+
+// ====================== 创建十个 a 标签，点击弹出对应的序号 ======================
+let a;
+for (let i = 0; i < 10; i++) {
+  a = document.createElement("a");
+  a.innerHTML = i + "<br>";
+  a.addEventListener("click", function (e) {
+    e.preventDefault();
+    console.log(i);
+  });
+  document.body.appendChild(a);
+}
+
+// ====================== 手写bind ======================
+Function.prototype.bind1 = function () {
+  const args = Array.from(arguments);
+  const _this = args.shift();
+  const self = this;
+  return () => {
+    return self.apply(_this, args);
+  };
+};
+const obj = {
+  name: "my name is object",
+};
+function fn(a, b, c) {
+  console.log("a,b,c: ", a, b, c);
+  console.log(this.name);
+}
+const f = fn.bind1(obj, 1, 2, 3);
+f();
+
+// ====================== 作用域 ======================
+function scope() {
+  const num = 12;
+  scope1();
+}
+const num = 21;
+function scope1() {
+  console.log("num: ", num);
+  // 打印 21
+  // 所有自由变量的查找，是在函数定义的地方向上级作用域查找，不是在执行的地方！
+}
+scope();
+
+// ====================== 加载图片 ======================
+function loadImg(src) {
+  return new Promise((resolve, reject) => {
+    const img = document.createElement("img");
+    img.onload = () => {
+      resolve(img);
+    };
+    img.onerror = (e) => {
+      reject(e);
+    };
+    img.src = src;
+  });
+}
+
+// ====================== promise async setTimeout 执行顺序 ======================
+async function async1() {
+  console.log("async1 start"); // 4
+  await async2();
+  console.log("async1 end"); // 6
+}
+
+async function async2() {
+  console.log("async2"); //5
+}
+
+console.log("script start"); // 1
+
+setTimeout(function () {
+  console.log("setTimeout"); // 8
+}, 0);
+
+async1();
+
+new Promise(function (resolve) {
+  console.log("promise1"); // 2
+  resolve();
+}).then(function () {
+  console.log("promise2"); // 7
+});
+
+console.log("script end"); // 3

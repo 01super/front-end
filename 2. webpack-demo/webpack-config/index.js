@@ -8,14 +8,14 @@ const {
 } = require("webpack");
 
 // 几种 hash 的区别：
-// 1、hash：
+// 1、hash：工程级别
 // 是跟整个项目的构建相关，只要项目里有文件更改，整个项目构建的hash值都会更改，并且全部文件都共用相同的hash值
 
-// 2、chunkhash：
+// 2、chunkhash：库级别
 // 它根据不同的入口文件(Entry)进行依赖文件解析、构建对应的chunk，生成对应的哈希值。
 // 简单来说这种是根据不同入口来配置的，比如vue-router、vuex、vue等公共入口文件，只要这些没有改变，那么他对应生成的js的hash值也不会改变。
 
-// 3、contenthash：
+// 3、contenthash：内容级别
 // 主要是处理关联性，比如一个 js 文件中引入 css，但是会生成一个 js 文件，一个 css 文件，但是因为入口是一个，导致他们的 hash 值也相同，所以当只有js修改时，关联输出的 css、img 等文件的 hash 值也会改变，这种情况下就需要 contenthash 了。
 
 // 处理 JSX @babel/preset-env

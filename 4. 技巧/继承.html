@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>继承</title>
+  </head>
+  <body>
+    <script>
+      class People {
+        constructor(gender) {
+          this.gender = gender;
+        }
+        eat() {
+          console.log("eat");
+        }
+      }
+      class Student extends People {
+        constructor(name, gender) {
+          super(gender);
+          this.name = name;
+        }
+        study() {
+          console.log("study");
+        }
+      }
+      console.log(Student.prototype.__proto__ === People.prototype);
+      const xm = new Student("xm", "meal");
+      console.log(xm.__proto__ === Student.prototype);
+      console.log(xm.__proto__.__proto__ === People.prototype);
+      console.log("xm: ", xm);
+    </script>
+  </body>
+</html>

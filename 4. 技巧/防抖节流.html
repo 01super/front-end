@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>防抖节流</title>
+    <style>
+      body {
+        height: 2000px;
+      }
+      .box {
+        width: 100%;
+        height: 500px;
+        background: #ccc;
+        border: 1px solid #f00;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>防抖</h1>
+    <input id="inp" type="text" />
+    <script>
+      // 极简版
+      // function debounce(fn, delay = 100) {
+      //   let timer;
+      //   return function (arg) {
+      //     timer && clearTimeout(timer);
+      //     timer = setTimeout(function () {
+      //       fn(arg);
+      //       timer = null;
+      //     }, delay);
+      //   };
+      // }
+      function debounce(fn, delay = 100) {
+        // 定时器，用来 setTimeout
+        var timer;
+        // 返回一个函数，这个函数会在一个时间区间结束后的 delay 毫秒时执行 fn 函数
+        return function () {
+          // 保存函数调用时的上下文和参数，传递给 fn
+          var context = this;
+          var args = arguments;
+          // 每次这个返回的函数被调用，就清除定时器，以保证不执行 fn
+          clearTimeout(timer);
+          // 当返回的函数被最后一次调用后（也就是用户停止了某个连续的操作），
+          // 再过 delay 毫秒就执行 fn
+          timer = setTimeout(function () {
+            fn.apply(context, args);
+          }, delay);
+        };
+      }
+      function inputChange(e) {
+        console.log("e: ", e.target.value);
+      }
+      const handleInputChange = debounce(inputChange, 1000);
+      const $inp = document.getElementById("inp");
+      $inp.addEventListener("input", handleInputChange);
+    </script>
+    <h1>节流</h1>
+    <div class="box"></div>
+    <script>
+      const $box = document.querySelector(".box");
+      function mousemove(e) {
+        console.table({ x: e.x, y: e.y });
+      }
+      function throttle(fn, delay = 500) {
+        let t;
+        return function (args) {
+          if (t) return;
+          t = setTimeout(() => {
+            fn(args);
+            t = null;
+          }, delay);
+        };
+      }
+      $box.addEventListener("mousemove", throttle(mousemove));
+    </script>
+  </body>
+</html>
