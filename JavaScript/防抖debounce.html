@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>debounce</h1>
+    <h3>停了再执行下一步，例如搜索框，输入停止了多少时间后再执行搜索</h3>
+      <input type="text" id="input">
+    <script>
+      function debounce(fn, delay = 200) {
+        let timer = null;
+        return function () {
+          if (timer) clearTimeout(timer);
+
+          timer = setTimeout(() => {
+            fn.apply(this, arguments);
+            timer = null;
+          }, delay);
+        };
+      }
+
+      const $input = document.querySelector('#input');
+      $input.addEventListener('keyup', debounce(() => {
+          console.log($input.value);
+      }, 300));
+    </script>
+  </body>
+</html>
