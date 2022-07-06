@@ -79,3 +79,34 @@ event.currentTarget返回绑定事件的元素
       console.log('res1: ', res1); // 200
    })()
 ```
+
+## 箭头函数和普通函数的区别
+
+- 箭头函数没有arguments 
+- 箭头函数不能通过bind、call、apply改变this指向
+- 箭头函数不适用对象方法
+   ```
+   const obj = {
+      name: '01super',
+      getName: () => this.name // 无法获取到name
+   }
+```
+- 箭头函数不适用于原型方法
+- 箭头函数不能作为构造函数
+- 箭头函数不能用于动态上下文中的回调函数
+```
+   const $btn = document.querySeletor('#btn');
+   $btn.addEventListener('click', () => {
+      this.innerHTML = 'clicked';  // 这里也是不行的
+   })
+```
+
+## for in 和 for of
+- for in 用于可枚举数据，如对象、数组、字符串，得到key
+   Object.getOwnPropertyDescriptors(obj) 可查看obj属性的 
+   configurable、enumerable、value、writable
+- for of 用于可迭代数据，如数组、字符串、Map、Set，得到value
+   ```
+   const arr = [1,2,3];
+   arr[Symbol.iterator]().next()  // 可迭代
+```
