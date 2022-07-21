@@ -110,3 +110,20 @@ event.currentTarget返回绑定事件的元素
    const arr = [1,2,3];
    arr[Symbol.iterator]().next()  // 可迭代
 ```
+
+## for await of
+```
+function createPromise(delay){
+   return new Promise((res, rej)=> {
+      setTimeout(()=>res(Math.random()), delay);
+   });
+}
+(async () =>{
+const p1 = createPromise(1000);
+const p2 = createPromise(2000);
+const list = [p1, p2];
+for await (let res of list) {
+   console.log(res);
+}
+})();
+```
