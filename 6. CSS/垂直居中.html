@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>垂直居中</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        width: 200px;
+        height: 200px;
+        background-color: lightgreen;
+        margin-bottom: 20px;
+      }
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: bisque;
+      }
+      .demo {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      /* 使用 flex 居中 */
+      .box-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /* 使用margin + transform */
+      .box-wrap1 > .box {
+        margin: 0 auto;
+        transform: translateY(50%);
+      }
+
+      /* 使用margin + transform */
+      .box-wrap2 > .box {
+        margin: 50% auto;
+        transform: translateY(-50%);
+      }
+
+      /* inline-block+vertical-aligin */
+      .box-wrap3 {
+        text-align: center;
+        line-height: 200px;
+      }
+      .box-wrap3 > .box {
+        display: inline-block;
+        /* 重新设置子元素的行高，否则会继承父元素的行高*/
+        line-height: 100px;
+        /* middle   把此元素放置在父元素的中部。 */
+        vertical-align: middle;
+      }
+      /* absolute+负margin */
+      .box-wrap4 {
+        position: relative;
+      }
+      .box-wrap4 > .box {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      /* absolute+margin:auto */
+      .box-wrap5 {
+        position: relative;
+      }
+      .box-wrap5 > .box {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+      }
+      /* grid */
+      .box-wrap6 {
+        display: grid;
+      }
+      .box-wrap6 > .box {
+        align-self: center;
+        justify-self: center;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="demo">
+      <main class="box-wrap">
+        <div class="box"></div>
+      </main>
+      <main class="box-wrap1">
+        <div class="box"></div>
+      </main>
+      <main class="box-wrap2">
+        <div class="box"></div>
+      </main>
+      <main class="box-wrap3">
+        <div class="box"></div>
+      </main>
+      <main class="box-wrap4">
+        <div class="box"></div>
+      </main>
+      <main class="box-wrap5">
+        <div class="box"></div>
+      </main>
+      <main class="box-wrap6">
+        <div class="box"></div>
+      </main>
+    </section>
+  </body>
+</html>
