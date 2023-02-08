@@ -85,16 +85,17 @@ event.currentTarget返回绑定事件的元素
 - 箭头函数没有arguments 
 - 箭头函数不能通过bind、call、apply改变this指向
 - 箭头函数不适用对象方法
-   ```
-   const obj = {
-      name: '01super',
-      getName: () => this.name // 无法获取到name
-   }
+
+``` JavaScript
+const obj = {
+   name: '01super',
+   getName: () => this.name // 无法获取到name
+}
 ```
 - 箭头函数不适用于原型方法
 - 箭头函数不能作为构造函数
 - 箭头函数不能用于动态上下文中的回调函数
-```
+``` JavaScript
    const $btn = document.querySeletor('#btn');
    $btn.addEventListener('click', () => {
       this.innerHTML = 'clicked';  // 这里也是不行的
@@ -102,28 +103,52 @@ event.currentTarget返回绑定事件的元素
 ```
 
 ## for in 和 for of
-- for in 用于可枚举数据，如对象、数组、字符串，得到key
+
+- for in 用于**可枚举**数据，如对象、数组、字符串，得到key
    Object.getOwnPropertyDescriptors(obj) 可查看obj属性的 
    configurable、enumerable、value、writable
-- for of 用于可迭代数据，如数组、字符串、Map、Set，得到value
-   ```
+   enumerable 为 true，则该对象为可枚举的
+
+- for of 用于**可迭代**数据，如数组、字符串、Map、Set，得到value
+
+``` JavaScript
    const arr = [1,2,3];
-   arr[Symbol.iterator]().next()  // 可迭代
-```
+   const iterator = arr[Symbol.iterator]();  // 可迭代
+   iterator.next();
+   iterator.next();
+```  
 
 ## for await of
+
+``` JavaScript
+   function createPromise(delay){
+      return new Promise((res, rej)=> {
+         setTimeout(()=>res(Math.random()), delay);
+      });
+   }
+   (async () =>{
+   const p1 = createPromise(1000);
+   const p2 = createPromise(2000);
+   const list = [p1, p2];
+   for await (let res of list) {
+      console.log(res);
+   }
+   })();
 ```
-function createPromise(delay){
-   return new Promise((res, rej)=> {
-      setTimeout(()=>res(Math.random()), delay);
-   });
-}
-(async () =>{
-const p1 = createPromise(1000);
-const p2 = createPromise(2000);
-const list = [p1, p2];
-for await (let res of list) {
-   console.log(res);
-}
-})();
+
+## HTTP 跨域请求时为何发送 options 请求
+   - options 请求是跨域请求之前的预检查
+   - 浏览器自行发起的，无需认为干预
+   - 不会影响实际功能
+
+## jsonp
+``` JavaScript
+   <script>
+      window.callbackFn = function(data) {
+         console.log(data);
+      }
+   </script>
+   // http://www.abc.com/api/getData 返回字符串 'callbackFn({data: 123})'
+   // 就会执行预先定义的 callbackFn 函数
+   <script src='http://www.abc.com/api/getData'></script>
 ```
