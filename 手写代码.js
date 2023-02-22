@@ -223,3 +223,19 @@ new Promise(function (resolve) {
 });
 
 console.log("script end"); // 3
+
+
+async function testB () {
+   return {
+     then (cb) {
+       cb();
+      }
+    };
+ }
+ 
+ testB().then(() => console.log(1));
+ Promise.resolve()
+    .then(() => console.log(2))
+    .then(() => console.log(3));
+ 
+ // (等待一个then)最终结果👉: 2 1 3
