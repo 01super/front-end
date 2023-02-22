@@ -64,3 +64,64 @@ type Obj = {
 type MyPartial<T> = { [K in keyof T]?: T[K] };
 // 实现 Required
 type MyRequired<T> = { [P in keyof T]-?: T[P] };
+// 实现Exclude
+type MyExclude<T, U> = T extends U ? never : T
+type NotA = MyExclude<InExample, 'a'>
+type NotA1 = Exclude<InExample, 'a'>
+
+/**
+ * extends 条件类型  T extends U ? X : Y
+ */
+type TypeCheck<T> = T extends string
+    ? 'string'
+    : T extends number
+        ? 'number'
+        : T extends boolean
+            ? 'boolean'
+            : T extends undefined
+                ? 'undefined'
+                : T extends Function
+                    ? 'function'
+                    : 'object';
+type T0 = TypeCheck<string>; // "string"
+type T1 = TypeCheck<'a'>; // "string"
+type T2 = TypeCheck<true>; // "boolean"
+type T3 = TypeCheck<() => void>; // "function"
+type T4 = TypeCheck<string[]>; // "object"
+
+/**
+ * Extract 用于从联合类型中提取特定类型 type Extract<T, U> = T extends U ? T : never;
+ * Extract 的功能，与 Exclude 相反，它是 提取 T 中可以赋值给 U 的类型。
+ */
+interface IPerson {
+  name: string,
+  age: number,
+  sex: 0 | 1,
+}
+interface IMan {
+  name: string,
+  age: number,
+}
+type Man = Extract<IPerson, IMan> // 等效于 type Man = IPerson
+
+type Fruits = "apple" | "banana"  | 'peach' | 'orange';
+type DislikeFruits = "apple" | "banana";
+type FloveFruits = Extract<Fruits, DislikeFruits> // 等效于 type FloveFruits = "apple" | "banana"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
