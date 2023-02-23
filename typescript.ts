@@ -65,26 +65,26 @@ type MyPartial<T> = { [K in keyof T]?: T[K] };
 // 实现 Required
 type MyRequired<T> = { [P in keyof T]-?: T[P] };
 // 实现Exclude
-type MyExclude<T, U> = T extends U ? never : T
-type NotA = MyExclude<InExample, 'a'>
-type NotA1 = Exclude<InExample, 'a'>
+type MyExclude<T, U> = T extends U ? never : T;
+type NotA = MyExclude<InExample, "a">;
+type NotA1 = Exclude<InExample, "a">;
 
 /**
  * extends 条件类型  T extends U ? X : Y
  */
 type TypeCheck<T> = T extends string
-    ? 'string'
-    : T extends number
-        ? 'number'
-        : T extends boolean
-            ? 'boolean'
-            : T extends undefined
-                ? 'undefined'
-                : T extends Function
-                    ? 'function'
-                    : 'object';
+  ? "string"
+  : T extends number
+  ? "number"
+  : T extends boolean
+  ? "boolean"
+  : T extends undefined
+  ? "undefined"
+  : T extends Function
+  ? "function"
+  : "object";
 type T0 = TypeCheck<string>; // "string"
-type T1 = TypeCheck<'a'>; // "string"
+type T1 = TypeCheck<"a">; // "string"
 type T2 = TypeCheck<true>; // "boolean"
 type T3 = TypeCheck<() => void>; // "function"
 type T4 = TypeCheck<string[]>; // "object"
@@ -94,34 +94,77 @@ type T4 = TypeCheck<string[]>; // "object"
  * Extract 的功能，与 Exclude 相反，它是 提取 T 中可以赋值给 U 的类型。
  */
 interface IPerson {
-  name: string,
-  age: number,
-  sex: 0 | 1,
+  name: string;
+  age: number;
+  sex: 0 | 1;
 }
 interface IMan {
-  name: string,
-  age: number,
+  name: string;
+  age: number;
 }
-type Man = Extract<IPerson, IMan> // 等效于 type Man = IPerson
+type Man = Extract<IPerson, IMan>; // 等效于 type Man = IPerson
 
-type Fruits = "apple" | "banana"  | 'peach' | 'orange';
+type Fruits = "apple" | "banana" | "peach" | "orange";
 type DislikeFruits = "apple" | "banana";
-type FloveFruits = Extract<Fruits, DislikeFruits> // 等效于 type FloveFruits = "apple" | "banana"
+type FloveFruits = Extract<Fruits, DislikeFruits>; // 等效于 type FloveFruits = "apple" | "banana"
 
+/**
+ * NonNullable  用于删除联合类型中的 null和 undefined
+ * type NonNullable<T> = T extends null | undefined ? never : T;
+ */
+type A = NonNullable<string | null | undefined | number>;
 
+/**
+ * Record
+ */
 
+type MyRecord<K extends keyof any, T> = {
+  [P in K]: T;
+};
 
+type keyType = keyof any; // string | number | symbol
 
+/**
+ * Omit 用来 删除 符合类型 T 中不需要的属性 K，生成新的类型
+ */
+type newPerson = Omit<Person, "name">; // {sex:string}
+type MyOmit<T, K extends keyof any> = { [P in Exclude<keyof T, K>]: T[P] };
+type newPerson1 = MyOmit<Person, "name">; // {sex:string}
 
+type MyOmit1<T, K extends keyof T> = {
+  [P in keyof T as P extends K ? never : P]: T[P];
+};
+type newPerson2 = MyOmit<Person, "name">; // {sex:string}
 
+/**
+ * as 语句的作用：会对映射类型中的键进行重新映射
+ * as 语句后面新映射类型必须是 string|number|symbol 联合类型的子类型。
+ */
+interface User {
+  name?: string;
+  age?: number;
+  hobby: string;
+}
+// 把其中某个属性修改为必填
+type CustomRequired<T, K extends keyof T> = Omit<T, K> & {
+  [P in K]-?: T[P]; // 映射类型
+};
+type SpecialUser = CustomRequired<User, "name">;
+const user: SpecialUser = {
+  name: "1",
+  hobby: "xx",
+};
 
+/**
+ * infer 的英文意思：推断。可以结合 extends条件语句推断待推断的类型。
+ */
+type Uuids = number[];
+type Names = string[];
+type Unpacked<T> = T extends (infer K)[] ? K : T;
+type UuidType = Unpacked<Uuids>; // UuidType 的类型为 number
+type NameType = Unpacked<Names>; // NameType 的类型为 string
 
-
-
-
-
-
-
-
-
-
+// 使用 infer 获取 Promise<xxx> 类型中 xxx 类型
+type Res = Promise<number[]>;
+type Unpacked1<T> = T extends Promise<infer R> ? R : T;
+type resType = Unpacked<Res>; // resType 类型为number[]
