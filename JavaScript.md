@@ -85,6 +85,8 @@ event.currentTarget返回绑定事件的元素
 - 箭头函数没有arguments 
 - 箭头函数不能通过bind、call、apply改变this指向
 - 箭头函数不适用对象方法
+- 无法作为构造函数使用，没有自身的prototype
+- 箭头函数不会创建自身的this，只会从上一级继承this,箭头函数的this在定义的时候就已经确认了，之后不会改变。
 
 ``` JavaScript
 const obj = {
@@ -151,4 +153,32 @@ const obj = {
    // http://www.abc.com/api/getData 返回字符串 'callbackFn({data: 123})'
    // 就会执行预先定义的 callbackFn 函数
    <script src='http://www.abc.com/api/getData'></script>
+```
+
+## 闭包和作用域
+js中自由变量的查找是**在函数定义的地方**，向上级作用域查找，**不是在执行的地方**  
+```javascript
+// 函数作为返回值
+function create() {
+  let a = 100;
+  return function () {
+    console.log(a);
+  };
+}
+
+const fn = create();
+const a = 200;
+fn(); // 100
+
+// 函数作为参数被传递
+function print(fb) {
+  const b = 200;
+  fb();
+}
+const b = 100;
+function fb() {
+  console.log(b);
+}
+print(fb); // 100
+
 ```
