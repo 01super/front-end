@@ -11,5 +11,24 @@
         <div style="text-indent: 2em;font-size: 32px;">停了再执行下一步，例如搜索框，输入停止了多少时间后再执行搜索</div>
         <div style="text-indent: 2em;">停了再执行下一步，例如搜索框，输入停止了多少时间后再执行搜索</div>
     </div>
+    <script>
+        console.log(name111);
+        // console.log(age);
+        var name111 = 12
+        const age = 12;
+        const obj = {
+            bar:  function() {
+                console.log(name111);
+            }
+        }
+        function foo() {
+            console.log('test: ', test);
+            var test = 12;
+            obj.bar();
+        }
+        // debugger
+        foo();
+        console.log(obj.bar)
+    </script>
 </body>
 </html>
