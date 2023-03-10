@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <div>
-        <div style="text-indent: 2em;font-size: 32px;">停了再执行下一步，例如搜索框，输入停止了多少时间后再执行搜索</div>
-        <div style="text-indent: 2em;">停了再执行下一步，例如搜索框，输入停止了多少时间后再执行搜索</div>
+      <div style="text-indent: 2em; font-size: 32px">
+        停了再执行下一步，例如搜索框，输入停止了多少时间后再执行搜索
+      </div>
+      <div style="text-indent: 2em">
+        停了再执行下一步，例如搜索框，输入停止了多少时间后再执行搜索
+      </div>
     </div>
     <script>
-        console.log(name111);
-        // console.log(age);
-        var name111 = 12
-        const age = 12;
-        const obj = {
-            bar:  function() {
-                console.log(name111);
-            }
-        }
-        function foo() {
-            console.log('test: ', test);
-            var test = 12;
-            obj.bar();
-        }
-        // debugger
-        foo();
-        console.log(obj.bar)
+      console.log(name111);
+      // console.log(age);
+      var name111 = 12;
+      const age = 12;
+      const obj = {
+        bar: function () {
+          console.log(name111);
+        },
+      };
+      function foo() {
+        console.log("test: ", test);
+        var test = 12;
+        obj.bar();
+      }
+      // debugger
+      foo();
+      function fn1 () {console.log();};
+      console.dir(fn1);
+      async function fn2() {console.log();};
+      console.dir(fn2);
+      console.log(fn2[Symbol.toStringTag]);
+      console.log(fn1[Symbol.toStringTag]);
+      console.log(++[[]][+[]] + [+[]])
+
+      const iterableObj = { a: 1, b: 2 };
+      Object.prototype[Symbol.iterator] = function() {
+        return Object.values(this)[Symbol.iterator]();  // 迭代器
+      } 
+      var [a, b] = iterableObj;   
     </script>
-</body>
+  </body>
 </html>
