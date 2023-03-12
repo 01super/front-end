@@ -30,7 +30,7 @@
         var test = 12;
         obj.bar();
       }
-      // debugger
+      // debugger 
       foo();
       function fn1 () {console.log();};
       console.dir(fn1);
@@ -45,6 +45,10 @@
         return Object.values(this)[Symbol.iterator]();  // 迭代器
       } 
       var [a, b] = iterableObj;   
+      Object.defineProperty
+      Object.preventExtensions({})
+      Object.freeze();
+      Object.seal();
     </script>
   </body>
 </html>
