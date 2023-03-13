@@ -34,6 +34,9 @@ class Person {
   eating() {
     console.log("eating");
   }
+  #run() {
+    console.log('run')
+  }
 }
 const p5 = new Person("xiaohu", 22);
 const p6 = new Person("xiaoxia", 23);
@@ -43,3 +46,9 @@ console.log("类: ", p5.eating === p6.eating);
 // 一个对象的属性或者方法在自身找不到，就会到原型链上去找，为什么不放在自身而是放在原型行？
 // 是为了方便实现继承，节约空间占用
 // 如果用上面构造函数 PersonFn 生成对象，他的 eating 方法会不断实现，浪费空间，如果放在原型上则不会出现这个问题
+
+const obj = {name: 'xx'}
+Object.defineProperty(obj,'color', {
+  value: '12',
+})
+console.log(obj)
