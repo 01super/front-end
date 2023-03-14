@@ -200,3 +200,16 @@ print(fb); // 100
       obj.isPrototypeOf(info)
       // info instanceof obj  // 这种会报错，因为右边只能是函数
    ```
+
+
+## 监听对象是否被销毁
+```javascript
+let obj = {};
+const weakObj =new WeakRef(obj);
+const finalization = new FinalizationRegistry((o) => {
+    console.log('obj 被注销了: ', o, weakObj)
+    console.log(weakObj.deref())
+})
+finalization.register(obj, 'obj')
+obj = null;
+```
