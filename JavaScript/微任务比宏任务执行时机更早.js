@@ -11,3 +11,6 @@ Promise.resolve().then(() => {
 setTimeout(() => {
   alert("setTimeout");
 });
+
+// queueMicrotask()
+// MutationObserver
