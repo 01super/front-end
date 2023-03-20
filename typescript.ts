@@ -160,11 +160,53 @@ const user: SpecialUser = {
  */
 type Uuids = number[];
 type Names = string[];
-type Unpacked<T> = T extends (infer K)[] ? K : T;
+type Unpacked<T> = T extends (infer K)[] ? K : unknown;
 type UuidType = Unpacked<Uuids>; // UuidType 的类型为 number
 type NameType = Unpacked<Names>; // NameType 的类型为 string
 
 // 使用 infer 获取 Promise<xxx> 类型中 xxx 类型
 type Res = Promise<number[]>;
-type Unpacked1<T> = T extends Promise<infer R> ? R : T;
+type Unpacked1<T> = T extends Promise<infer R> ? R : unknown;
 type resType = Unpacked<Res>; // resType 类型为number[]
+
+// TypeScript 的逆变、协变、双向协变、不变
+interface Father {
+  name: string;
+  age: number;
+}
+
+interface Son extends Father{
+  name: string;
+  age: number;
+  hobbies: string[];
+}
+
+let son1: Son = {
+  age: 18,
+  name: 'xxx',
+  hobbies: ['xxx']
+}
+
+let father1: Father = {
+  age: 18,
+  name: 'xxx',
+}
+// 子类型可以赋值给父类型，叫做协变
+father1 = son1
+
+let printHobbies: (son: Son) => void;
+printHobbies = son => {
+  console.log(son.hobbies);
+}
+let printName: (father: Father) => void;
+printName = (father) => {
+  console.log(father.name);
+}
+// 父类型可以赋值给子类型，叫做逆变。
+printHobbies = printName
+
+// 双向协变
+// 子类型赋值给父类型可能会出现问题
+// 但在 ts2.x 之前支持这种赋值，也就是父类型可以赋值给子类型，子类型可以赋值给父类型，既逆变又协变，叫做“双向协变”。
+// 配置"strictFunctionTypes": false, 后下面这句赋值语句才不会报错
+printName = printHobbies
