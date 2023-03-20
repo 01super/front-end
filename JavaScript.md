@@ -187,3 +187,29 @@ function fb() {
 print(fb); // 100
 
 ```
+
+## 判断对象原型的相关方法
+   - hasOwnProperty：对象是否有某一个属于自己的属性（不是在原型链上）
+   - in/for in 操作符：判断某个属性是否在某个对象或者对象的原型上
+   - instanceof： 用于检测构造函数prototype，是否出现在某个实例对象的原型链上
+   - isPrototypeOf：用于检测某个对象是否出现在某个实例对象的原型链上
+
+   ```javascript
+      const obj = {};
+      const info = Object.create(obj);
+      obj.isPrototypeOf(info)
+      // info instanceof obj  // 这种会报错，因为右边只能是函数
+   ```
+
+
+## 监听对象是否被销毁
+```javascript
+let obj = {};
+const weakObj =new WeakRef(obj);
+const finalization = new FinalizationRegistry((o) => {
+    console.log('obj 被注销了: ', o, weakObj)
+    console.log(weakObj.deref())
+})
+finalization.register(obj, 'obj')
+obj = null;
+```
