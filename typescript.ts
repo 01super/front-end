@@ -210,3 +210,41 @@ printHobbies = printName
 // 但在 ts2.x 之前支持这种赋值，也就是父类型可以赋值给子类型，子类型可以赋值给父类型，既逆变又协变，叫做“双向协变”。
 // 配置"strictFunctionTypes": false, 后下面这句赋值语句才不会报错
 printName = printHobbies
+
+// 如何确定父子关系的？
+// 通过结构，更具体的那个是子类型
+
+/**
+ * Person {
+ *    name: string;
+ *    age: number;
+ * }
+ * 
+ * Son {
+ *    name: string;
+ *    age: number;
+ *    hobbies: string[];
+ * }
+ * Son 描述得更具体，所以Son是子类型
+ * type As = 'a' | 'b';
+ * type Bs = 'a' | 'b' | 'c';
+ * As 描述得比 Bs 更具体，所以 As 是 Bs 的子类
+ */
+
+type StringKeys<T> = {
+  [P in keyof T]: P extends string ? P : never
+}[keyof T]
+
+type C = StringKeys<Person>
+
+type StringValues<T> = {
+  [P in keyof T]: T[P] extends string ? T[P] : never
+}[keyof T]
+
+type V = StringValues<Person>
+
+type DictArrar<T> = {
+  [P in keyof T]: P extends string ? {text: T[P]; code: P} : never
+}[keyof T][]
+
+type Ar = DictArrar<Person>
