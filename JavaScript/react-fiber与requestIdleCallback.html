@@ -14,11 +14,11 @@
   </head>
   <body>
     <div class="box">
-      react fiber 组建树转换为链表，颗分段渲染
+      react fiber 组建树转换为链表，可分段渲染
       渲染时可暂停，去执行其他高优先级任务，空闲时再继续执行
-      如何判断空闲：requestIdleCallback requestIdleCallback
-      空闲时才执行，低优先级 requestAnimationFrame
-      每次渲染完成都会执行，高优先级
+      如何判断空闲：requestIdleCallback 
+      requestIdleCallback：空闲时才执行，低优先级 
+      requestAnimationFrame：每次渲染完成都会执行，高优先级
       他们都是宏任务，因为他们都是dom渲染完成之后才执行
     </div>
     <button id="btn">变化</button>
@@ -42,6 +42,8 @@
         }
         addWidth();
       });
+      requestIdleCallback(() => console.log("requestIdleCallback 11"));
+      alert(666)
       // 优先级：
     //   timeout -> requestAnimationFrame -> requestIdleCallback
     //   requestAnimationFrame -> timeout -> requestIdleCallback

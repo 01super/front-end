@@ -239,3 +239,4 @@ async function testB () {
     .then(() => console.log(3));
  
  // (等待一个then)最终结果👉: 2 1 3
+ 
