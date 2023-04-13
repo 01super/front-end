@@ -30,25 +30,33 @@
         var test = 12;
         obj.bar();
       }
-      // debugger 
+      // debugger
       foo();
-      function fn1 () {console.log();};
+      function fn1() {
+        console.log();
+      }
       console.dir(fn1);
-      async function fn2() {console.log();};
+      async function fn2() {
+        console.log();
+      }
       console.dir(fn2);
       console.log(fn2[Symbol.toStringTag]);
       console.log(fn1[Symbol.toStringTag]);
-      console.log(++[[]][+[]] + [+[]])
+      console.log(++[[]][+[]] + [+[]]);
 
       const iterableObj = { a: 1, b: 2 };
-      Object.prototype[Symbol.iterator] = function() {
-        return Object.values(this)[Symbol.iterator]();  // 迭代器
-      } 
-      var [a, b] = iterableObj;   
-      Object.defineProperty
-      Object.preventExtensions({})
+      Object.prototype[Symbol.iterator] = function () {
+        return Object.values(this)[Symbol.iterator](); // 迭代器
+      };
+      var [a, b] = iterableObj;
+      Object.defineProperty;
+      Object.preventExtensions({});
       Object.freeze();
       Object.seal();
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("DOMContentLoaded");
+      });
     </script>
+
   </body>
 </html>
