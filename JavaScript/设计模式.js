@@ -59,22 +59,30 @@ console.log(obj)
  */
 function getSingle(fn) {
   let result;
-  return function() {
-    result || (result = fn().apply(this, arguments) )
-  }
+  return function () {
+    return result || (result = fn.apply(this, arguments));
+  };
 }
 
 function createModal() {
-  const div = document.createElement('div');
-  div.innerHTML = '弹框';
-  div.style = 'width: 50px;height: 50px;background: red;display: none;positon: fixed;left: 50%; top: 50%;';
+  const div = document.createElement("div");
+  div.innerHTML = "弹框";
+  div.style.width = 500;
+  div.style.height = 500;
+  div.style.background = "red";
+  div.style.display = "none";
+  div.style.positon = "fixed";
+  div.style.left = "50%";
+  div.style.top = "50%";
   document.body.appendChild(div);
   return div;
 }
 
 const createSingleModal = getSingle(createModal);
 
-document.querySelector('body').addEventListener('click',() => {
+document.querySelector("body").addEventListener("click", () => {
   const modal = createSingleModal();
-  modal.style.display = 'block'
-})
+  console.log("modal: ", modal);
+  modal.style.display = "block";
+  modal.style.positon = "fixed";
+});
