@@ -37,13 +37,33 @@
 
  console.log(" xialuo instanceof Object: ", xialuo instanceof Object);
 
- xialuo.__proto__ === Student.prototype // true
+ xialuo.__proto__ === Student.prototype; // true
  /**
   * 每个class都要显示原型prototype
   * 每个实例都有隐式原型__proto__
   * 实例的__proto__ 指向其对应class 的 prototype
-  * 
+  *
   * 基于原型的执行规则：
   * 先在自身找属性和方法
   * 找不到再去__proto__去找
   */
+
+ /**
+  * new.target 指向当前的触发构造函数的类
+  * 判断多层继承来源
+  * new.target.name
+  */
+ class Color {
+   constructor() {
+     console.log(`new.target.name: ' ${new.target.name}`);
+   }
+ }
+
+ class SubColor extends Color {
+   constructor() {
+     super(); // 子类通过super出发父类的构造函数
+   }
+ }
+
+ new Color(); // Color
+ new SubColor();  // SubColor
