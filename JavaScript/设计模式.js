@@ -52,3 +52,29 @@ Object.defineProperty(obj,'color', {
   value: '12',
 })
 console.log(obj)
+
+/**
+ * 单例模式
+ * 
+ */
+function getSingle(fn) {
+  let result;
+  return function() {
+    result || (result = fn().apply(this, arguments) )
+  }
+}
+
+function createModal() {
+  const div = document.createElement('div');
+  div.innerHTML = '弹框';
+  div.style = 'width: 50px;height: 50px;background: red;display: none;positon: fixed;left: 50%; top: 50%;';
+  document.body.appendChild(div);
+  return div;
+}
+
+const createSingleModal = getSingle(createModal);
+
+document.querySelector('body').addEventListener('click',() => {
+  const modal = createSingleModal();
+  modal.style.display = 'block'
+})
