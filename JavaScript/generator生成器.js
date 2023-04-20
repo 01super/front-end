@@ -13,3 +13,17 @@ result = gen.next(22); // -> log value1
 console.log("result: ", result); // second
 result = gen.next(33); // -> log value2
 console.log("result: ", result); // undefined
+
+function* genID() {
+  let i = 1;
+  while (true) {
+    yield i;
+    i++;
+  }
+}
+
+const idGen = genID();
+console.log(idGen.next());
+console.log(idGen.next());
+console.log(idGen.next());
+console.log(idGen.next());
