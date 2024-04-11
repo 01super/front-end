@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 
 class App extends Component {
   render() {
@@ -42,9 +41,6 @@ class RenderProps extends Component {
   }
 }
 
-RenderProps.prototype = {
-  render: PropTypes.func.isRequired,
-};
 
 export default class Wrappered extends Component {
   render() {
