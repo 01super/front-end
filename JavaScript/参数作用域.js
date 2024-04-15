@@ -10,4 +10,4 @@ function foo(x, y = function (){x = 3; console.log(x)}, w = 33) {  // 3
     console.log(z);
 }
 foo();
-console.log(x)  // 1
+console.log('last:', x)  // 1

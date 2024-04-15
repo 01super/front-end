@@ -34,7 +34,7 @@
 
       const data = new Array(20000).fill(1);
 
-      function normarlRun() {
+      function normalRun() {
         for (let i = 0; i < data.length; i++) {
           singleTask(data[i]);
         }
@@ -69,7 +69,7 @@
       const normalBtn = document.querySelector(".normal-run");
       normalBtn.addEventListener("click", () => {
         result("");
-        normarlRun();
+        normalRun();
       });
 
       const ridBtn = document.querySelector(".rid-run");
@@ -84,6 +84,8 @@
       const box = document.querySelector(".box");
       function move() {
         requestAnimationFrame(function () {
+          // const now = performance.now();
+          // while (performance.now() - now < 100) {}
           if (left >= 100 || left < 0) {
             direction *= -1;
           }

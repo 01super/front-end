@@ -20,6 +20,8 @@
       requestIdleCallback：空闲时才执行，低优先级 
       requestAnimationFrame：每次渲染完成都会执行，高优先级
       他们都是宏任务，因为他们都是dom渲染完成之后才执行
+      <br />
+      MutationObserver 微任务，渲染前执行
     </div>
     <button id="btn">变化</button>
     <script>
@@ -36,25 +38,25 @@
             const a = 12 > 99 ? 1 : 2;
           }
           if (currentWidth < maxWidth) {
-            // requestIdleCallback(addWidth)
-            requestAnimationFrame(addWidth);
+            requestIdleCallback(addWidth)
+            // requestAnimationFrame(addWidth);
           }
         }
         addWidth();
       });
-      requestIdleCallback(() => console.log("requestIdleCallback 11"));
-      alert(666)
+          requestIdleCallback(() => console.log("requestIdleCallback 11"));
+          alert(666)
       // 优先级：
     //   timeout -> requestAnimationFrame -> requestIdleCallback
     //   requestAnimationFrame -> timeout -> requestIdleCallback
     //   会有这两种情况
-      window.onload = () => {
+          // window.onload = () => {
         requestAnimationFrame(() => console.log("requestAnimationFrame"));
         requestIdleCallback(() => console.log("requestIdleCallback"));
         setTimeout(() => {
           console.log("timeout");
-        });
-      };
+        }, 0);
+          // };
     </script>
   </body>
 </html>
