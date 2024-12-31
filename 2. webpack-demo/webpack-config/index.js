@@ -22,6 +22,11 @@ const {
 // 处理 vue vue-loader
 module.exports = {
   mode: "production",
+  /**
+   * source-map 源码地图：在开发环境中使用，最为一种调试手段，不应使用在生产环境中
+   * 打包后的代码难以阅读，source-mapsource-map记录了原始代码和转换后的代码其对应的原始的位置关系
+   */
+  devtool: "source-map",
   entry: {
     index: path.resolve(__dirname, "../src/index.js"),
     home: path.resolve(__dirname, "../src/home.js"),
@@ -30,10 +35,10 @@ module.exports = {
     filename: "[name].[contenthash:8].js",
     path: path.resolve(__dirname, "../dist"),
   },
-  resolve:{
+  resolve: {
     // 辅助开启 Scope Hosting 的配置
     // 针对 npm 中第三方模块优先采用 jsnext:next 中指向 ES6 模块化语法的文件
-    mainFields: ['jsnext:main', 'browser', 'main']
+    mainFields: ["jsnext:main", "browser", "main"],
   },
   module: {
     rules: [
