@@ -1,13 +1,15 @@
-# webpack 的性能优化  
+# webpack 编译过程
 
-  1、优化打包速度 - 开发体验和效率；
-  2、优化产出 - 产品性能；
+# webpack 的性能优化
+
+1、优化打包速度 - 开发体验和效率；
+2、优化产出 - 产品性能；
 
 ## 优化打包速度
 
 - 优化 babel-loader
   - 开启缓存 loader: ['babel-loader?cacheDirectory']
-  - 明确范围 include 和 exclude  
+  - 明确范围 include 和 exclude
 - IgnorePlugin
 - noParse
 - happyPack 多进程打包
@@ -21,10 +23,10 @@
   - HotModuleReplacementPlugin
 - DllPlugin(不能用于生产环境)
   - 用处：
-  前端框架如 Vue React 体积较大，构建较慢
-  较稳定，不长升级版本
-  同一个版本只构建一次即可，不用每次都重新构建
-  - 两步： DllPlugin 打包出 dll 文件；DLLReferencePlugin 使用 dll文件
+    前端框架如 Vue React 体积较大，构建较慢
+    较稳定，不长升级版本
+    同一个版本只构建一次即可，不用每次都重新构建
+  - 两步： DllPlugin 打包出 dll 文件；DLLReferencePlugin 使用 dll 文件
 
 ## 优化产出代码
 
@@ -38,7 +40,7 @@
   4. 提取公共代码
   5. IgnorePlugin(例如使用 momentjs 忽略语言包，减小体积)
   6. 使用 CDN 加速
-     1. 使用publicPath，将打包出来的文件加上 CDN 地址的前缀
+     1. 使用 publicPath，将打包出来的文件加上 CDN 地址的前缀
      2. 将文件上传到 CND 服务器
   7. 使用 mode=production
      1. 默认会压缩代码
@@ -52,6 +54,7 @@
 ## 面试问题
 
 - 前端为何需要进行打包构建
+
   1. 体积更小（Tree-Shaking、压缩、合并），加载更快
   2. 编译高级语法（TS、ES6+、模块化、scss、less）
   3. 兼容性和错误检查（polyfill、postcss、eslint）
@@ -60,18 +63,20 @@
   6. 集成公司构建规范（提测、上线等）
 
 - babel 和 webpack 的区别
-  1. babel - js 新语法编译工具，不关心模块化
-  2. webpack - 打包构建工具，多个loader 和 plugin 的集合
 
-- 如何产出一个lib
+  1. babel - js 新语法编译工具，不关心模块化
+  2. webpack - 打包构建工具，多个 loader 和 plugin 的集合
+
+- 如何产出一个 lib
 
 - babel-polyfill 和 babel-runtime 的区别
+
   1. babel-polyfill 会污染全局
   2. babel-runtime 不会污染全局
   3. 产出第三方 lib 要用 babel-runtime
 
 - webpack 优化构建速度
-  1. 优化babel-loader
+  1. 优化 babel-loader
   2. IgnorePlugin
   3. noParse
   4. happyPack
