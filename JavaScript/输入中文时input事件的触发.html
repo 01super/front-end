@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>输入中文时input事件的触发</title>
+  </head>
+  <body>
+    <input type="text" />
+    <br />
+    <br />
+    <br />
+    <div class="result"></div>
+    <script>
+      const input = document.querySelector("input");
+      const result = document.querySelector(".result");
+
+      function search() {
+        const value = input.value;
+        console.log("search", value);
+        result.innerHTML = input.value;
+      }
+      let flag = true;
+      input.addEventListener("input", () => {
+        if (flag) {
+          search();
+        }
+      });
+      input.addEventListener("compositionstart", () => {
+        flag = false;
+        console.log("compositionstart");
+      });
+
+      input.addEventListener("compositionend", () => {
+        flag = true;
+        search();
+        console.log("compositionend");
+      });
+    </script>
+  </body>
+</html>
