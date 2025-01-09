@@ -29,14 +29,18 @@
               return;
             }
             isRunning = true;
-            for (; i < processes.length; i++) {
+            while (i < processes.length) {
+              console.log(`任务${i}开始`);
               const r = await processes[i]();
+              console.log(`任务${i}结束`);
               result.push(r);
+              i++;
               if (!isRunning) {
                 return;
               }
             }
             isRunning = false;
+            console.log(`结束`);
             resolve(result);
           });
         };
