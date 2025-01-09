@@ -36,5 +36,33 @@
   </head>
   <body>
     <div class="box"></div>
+    <div class="box1"></div>
+    <style>
+      .box1 {
+        margin-top: 20px;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        border-radius: 50%;
+        margin: 0 auto;
+        background: conic-gradient(
+          red,
+          green,
+          blue,
+          yellow,
+          orange,
+          purple,
+          red
+        );
+        position: relative;
+      }
+      .box1::before {
+        content: "";
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        inset: 5px;
+      }
+    </style>
   </body>
 </html>
