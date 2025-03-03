@@ -9,24 +9,30 @@
   <body>
     <h1>debounce</h1>
     <h3>停了再执行下一步，例如搜索框，输入停止了多少时间后再执行搜索</h3>
-      <input type="text" id="input">
+    <input type="text" id="input" />
     <script>
-      function debounce(fn, delay = 200) {
+      function debounce(fn, delay = 300) {
         let timer = null;
-        return function () {
-          if (timer) clearTimeout(timer);
-
-          timer = setTimeout(() => {
-            fn.apply(this, arguments);
+        return function (...args) {
+          if (timer) {
+            clearTimeout(timer);
             timer = null;
+          }
+          timer = setTimeout(() => {
+            // fn.call(this, ...args);
+            // fn.apply(this, args);
+            fn.bind(this)(...args);
           }, delay);
         };
       }
-
-      const $input = document.querySelector('#input');
-      $input.addEventListener('keyup', debounce(() => {
+      const $input = document.querySelector("#input");
+      $input.addEventListener(
+        "keyup",
+        debounce(e => {
+          console.log(e);
           console.log($input.value);
-      }, 300));
+        }, 300)
+      );
     </script>
   </body>
 </html>
