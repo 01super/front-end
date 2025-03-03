@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Transitions API</title>
+    <style>
+      .list {
+        display: flex;
+        background: #000;
+        gap: 10px;
+        width: 600px;
+        flex-wrap: wrap;
+      }
+      .item {
+        width: 100px;
+        height: 100px;
+        background-color: #f40;
+        view-transition-name: var(--i);
+      }
+      ::view-transition-old(root), /* 旧视图*/::view-transition-new(root) {
+        /* 新视图*/
+        animation-duration: 0.3s;
+      }
+      dialog {
+        view-transition-name: dialog;
+      }
+    </style>
+  </head>
+  <body>
+    <a
+      href="https://developer.mozilla.org/zh-CN/docs/Web/API/View_Transition_API"
+      >View Transitions API
+    </a>
+    <div class="list" id="list">
+      <div class="item" style="--i: a1">1</div>
+      <div class="item" style="--i: a2">2</div>
+      <div class="item" style="--i: a3">3</div>
+      <div class="item" style="--i: a4">4</div>
+      <div class="item" style="--i: a5">5</div>
+      <div class="item" style="--i: a6">6</div>
+      <div class="item" style="--i: a7">7</div>
+      <div class="item" style="--i: a8">8</div>
+      <div class="item" style="--i: a9">9</div>
+      <div class="item" style="--i: a10">10</div>
+    </div>
+    <div class="bnt-group" id="group">
+      <button>按钮1</button> <button>按钮2</button> <button>按钮3</button>
+    </div>
+    <dialog id="dialog">
+      <form method="dialog">我是弹窗 <button>关闭</button></form>
+    </dialog>
+    <script>
+      list.addEventListener("click", function (ev) {
+        if (ev.target.className === "item") {
+          document.startViewTransition(() => {
+            // 开始视图变换
+            ev.target.remove();
+          });
+        }
+      });
+
+      group.addEventListener("click", function (ev) {
+        if (ev.target.tagName === "BUTTON") {
+          ev.target.style.viewTransitionName = "dialog"; // 动态添加 viewTransitionName
+          document.startViewTransition(() => {
+            ev.target.style.viewTransitionName = ""; // 结束后移除 viewTransitionName
+            dialog.showModal();
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -101,3 +101,15 @@ export class TaskQueue extends EventEmitter<"start" | "pause" | "drain"> {
     this.emit("pause");
   }
 }
+
+setTimeout(() => {
+  console.log("timeout1");
+  Promise.resolve().then(() => {
+    console.log("then1");
+  });
+});
+setTimeout(() => {
+  Promise.resolve().then(() => {
+    console.log("timeout2");
+  });
+});

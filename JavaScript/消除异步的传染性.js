@@ -1,4 +1,6 @@
 // 消除异步的传染性 ==> 将异步函数改成同步函数
+// 实际上是执行两次函数，第一次发出请求，随后报错，中断函数的执行
+// 第二次再次执行函数，此时fetch已经有值了，直接返回
 function getUser() {
   return fetch(
     "https://www.jianshu.com/shakespeare/v2/notes/fcab44989258/views_count"
@@ -58,6 +60,7 @@ function run(func) {
   try {
     func();
   } catch (error) {
+    console.log("error: ", error);
     if (error instanceof Promise) {
       // 不论成功还是失败都重新调用
       error.then(func, func).finally(() => {
@@ -67,4 +70,6 @@ function run(func) {
     }
   }
 }
+console.log("start");
 run(main);
+console.log("end");
