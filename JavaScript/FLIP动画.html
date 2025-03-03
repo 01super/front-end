@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FLIT 动画</title>
+    <style>
+      .btn {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 20px;
+      }
+      .box {
+        width: 300px;
+        border: 1px solid #ccc;
+        margin: 0 auto;
+        list-style: none;
+        padding: 10px 20px;
+      }
+      .box li {
+        padding: 0 10px;
+        line-height: 3em;
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn" id="btn">重排</button>
+    <ul class="box"></ul>
+    <script>
+      const getTops = (els) => {
+        const positions = {};
+        Array.from(els).forEach((el) => {
+          positions[el.id] = el.getBoundingClientRect().top;
+        });
+        return positions;
+      };
+
+      const content = [
+        {
+          text: "Lorem, ipsum dolor.",
+          color: "#f84",
+          id: "$1",
+        },
+        {
+          text: "Esse, labore nisi.",
+          color: "#8ed",
+          id: "$2",
+        },
+        {
+          text: "Itaque, modi nobis",
+          color: "#3c9",
+          id: "$3",
+        },
+        {
+          text: "Maiores, nam modi",
+          color: "#b84",
+          id: "$4",
+        },
+        {
+          text: "Facilis, minus debitis",
+          color: "#d11",
+          id: "$5",
+        },
+        {
+          text: "Iure, rem accusamus",
+          color: "#311",
+          id: "$6",
+        },
+      ];
+      const box = document.querySelector(".box");
+      const render = (content) => {
+        box.innerHTML = content
+          .map(
+            (item) =>
+              `<li style='color: ${item.color}' id=${item.id}>${item.text}</li>`
+          )
+          .join("");
+      };
+
+      render(content);
+
+      btn.addEventListener("click", () => {
+        // First 记录变动之前的位置=======================
+        const lis = document.querySelectorAll(".box li");
+        const firstPositions = getTops(lis);
+        console.log("firstPositions: ", firstPositions);
+        // return;
+        // 随机排序 让元素发生变化
+        content.sort(() => Math.random() - 0.5);
+        render(content); // 此时屏幕上还看不到变化后的画面，因为是单线程
+        // Last 记录变动之后的位置=========================================
+        const lis2 = document.querySelectorAll(".box li");
+        const lastPositions = getTops(lis2);
+        console.log("lastPositions: ", lastPositions);
+        // Invert 移动元素到 first 的位置
+        Object.keys(firstPositions).forEach((key) => {
+          const el = document.getElementById(key);
+          const positionY = firstPositions[key] - lastPositions[key];
+          el.style.transform = `translateY(${positionY}px)`;
+          requestAnimationFrame(() => {
+            el.style.transition = "transform 0.5s ease-in-out";
+            el.style.transform = `translateY(0)`;
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

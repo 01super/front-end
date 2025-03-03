@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>js-sdk</title>
+    <script src="//res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+  </head>
+  <body>
+    <script>
+      jWeixin.updateAppMessageShareData({
+        title: "标题",
+        desc: "描述",
+        link: "https://fd.cdwwl.com",
+        imgUrl: "https://fd.cdwwl.com/assets/logo-BZDZP-U1.png",
+        success: function () {},
+      });
+      jWeixin.updateTimelineShareData({
+        title: "标题",
+        desc: "描述",
+        link: "https://fd.cdwwl.com",
+        imgUrl: "https://fd.cdwwl.com/assets/logo-BZDZP-U1.png",
+        success: function () {},
+      });
+    </script>
+  </body>
+</html>

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "loader-utils": "^3.3.1",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
@@ -18,8 +19,9 @@
     "webpack-parallel-uglify-plugin": "^2.0.0"
   },
   "scripts": {
-    "build": "webpack --config webpack-config/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack-config/index.js --mode production",
+    "build:default": "webpack --mode production",
+    "build:dev": "webpack --config webpack-config/index.js --mode development"
   },
   "keywords": [],
   "author": "",

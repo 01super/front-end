@@ -4,5 +4,5 @@ export function test(params) {
 }
 
 function wow(params) {
-  return params + " wow";
+  return _.cloneDeep(params) + " wow";
 }

@@ -23,9 +23,9 @@ DOM 渲染是在 mounted 阶段完成，此阶段真实的 DOM 挂载完毕，�
 
 组件的调用顺序都是先父后子，渲染完成的顺序是先子后父。组件的销毁操作是先父后子，销毁完成的顺序是先子后父。
 
-加载渲染过程：父beforeCreate->父created->父beforeMount->子beforeCreate->子created->子beforeMount- >子mounted->父mounted
-子组件更新过程：父beforeUpdate->子beforeUpdate->子updated->父updated
-父组件更新过程：父 beforeUpdate -> 父 updated
+加载渲染过程：父beforeCreate->父created->父beforeMount->子beforeCreate->子created->子beforeMount- >子mounted->父mounted  
+子组件更新过程：父beforeUpdate->子beforeUpdate->子updated->父updated  
+父组件更新过程：父 beforeUpdate -> 父 updated  
 销毁过程：父beforeDestroy->子beforeDestroy->子destroyed->父destroyed
 
 # Vue3 为何抛弃 Object.definedProperty 转而使用 proxy

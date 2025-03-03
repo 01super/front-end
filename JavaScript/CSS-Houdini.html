@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Houdini 扇形动画</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        border: 1px solid black;
+        border-radius: 50%;
+        margin: 0 auto;
+        --d: 60deg;
+        background: conic-gradient(
+          red var(--d),
+          transparent var(--d) calc(360deg - var(--d)),
+          red calc(360deg - var(--d))
+        );
+        /* --d 变成css属性，便可以应用到transition中 */
+        transition: --d 0.5s;
+      }
+
+      /* 将 --d 让他变成一个css属性，定义为角度 */
+      @property --d {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 60deg;
+      }
+
+      .box:hover {
+        --d: 120deg;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+    <div class="box1"></div>
+    <style>
+      .box1 {
+        margin-top: 20px;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        border-radius: 50%;
+        margin: 0 auto;
+        background: conic-gradient(
+          red,
+          green,
+          blue,
+          yellow,
+          orange,
+          purple,
+          red
+        );
+        position: relative;
+      }
+      .box1::before {
+        content: "";
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        inset: 5px;
+      }
+    </style>
+  </body>
+</html>
