@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>计算文件hash</title>
+    <script src="https://cdn.jsdelivr.net/npm/hash-wasm@4"></script>
+  </head>
+  <body>
+    <input type="file" />
+    <script>
+      console.log(hashwasm);
+      async function calculateFileHash(file) {
+        const hasher = await hashwasm.createSHA1();
+        const chunkSize = 1024 * 1024; // 每次读取 1MB
+        let offset = 0;
+
+        while (offset < file.size) {
+          const chunk = file.slice(offset, offset + chunkSize);
+          const buffer = await chunk.arrayBuffer();
+          hasher.update(new Uint8Array(buffer));
+          offset += chunkSize;
+        }
+
+        const hash = hasher.digest("hex");
+        return hash;
+      }
+
+      // 使用示例
+      const fileInput = document.querySelector('input[type="file"]');
+      fileInput.addEventListener("change", async event => {
+        const file = event.target.files[0];
+        const start = performance.now();
+        const hash = await calculateFileHash(file);
+        const end = performance.now();
+        console.log("time:", (end - start) / 1000);
+        console.log("File hash:", hash);
+      });
+    </script>
+  </body>
+</html>
