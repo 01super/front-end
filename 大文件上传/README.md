@@ -228,19 +228,13 @@ export class TaskQueue extends EventEmitter<'start' | 'pause' | 'drain'> {
     }
   }
 
-  // 添加任务并启动执行
-  addAndStart(...tasks: Task[]) {
-    this.add(...tasks);
-    this.start();
-  }
-
   // 启动任务
   start() {
     if (this.status === 'running') {
       return; // 任务正在进行中，结束
     }
     if (this.tasks.size === 0) {
-      // 当前已无任务，触发drain事件
+      // 当前已无任务，触发 drain 事件
       this.emit('drain');
       return;
     }
