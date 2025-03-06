@@ -52,11 +52,37 @@
       //   会有这两种情况
       // window.onload = () => {
       requestAnimationFrame(() => console.log("requestAnimationFrame"));
+      // 低优先级任务之后执行
       requestIdleCallback(() => console.log("requestIdleCallback"));
       setTimeout(() => {
         console.log("timeout");
       }, 0);
       // };
+
+      queueMicrotask(() => console.log("queueMicrotask"));
+
+      scheduler.postTask(
+        () => {
+          // 宏任务前
+          console.log("高优");
+        },
+        { priority: "user-blocking" }
+      );
+
+      scheduler.postTask(
+        () => {
+          // 宏任务后
+          console.log("中优");
+        },
+        { priority: "user-visible" }
+      );
+      scheduler.postTask(
+        () => {
+          // 中优后执行
+          console.log("低优先级任务执行");
+        },
+        { priority: "background" }
+      );
     </script>
   </body>
 </html>
