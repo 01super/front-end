@@ -56,6 +56,8 @@ export abstract class ChunkSplitor extends EventEmitter<ChunkSplitorEvents> {
   // 计算每一个分片的hash
   abstract calcHash(chunks: Chunk[], emitter: EventEmitter<'chunks'>): void;
 
+  abstract calcSingleHash(chunk: Chunk): Promise<Chunk>;
+
   // 分片完成后一些需要销毁的工作
   abstract dispose(): void;
 }

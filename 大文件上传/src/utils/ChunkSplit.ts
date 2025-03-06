@@ -10,47 +10,54 @@ import { md5 } from 'hash-wasm';
 
 export class ChunkSplit extends ChunkSplitor {
   // 计算每一个分片的hash
-  // calcHash(chunks: Chunk[], emitter: EventEmitter<'chunks'>): void {
-  //   const len = chunks.length;
-  //   let count = 0;
-  //   chunks.forEach(async (chunk) => {
-  //     const arrayBuffer = await chunk.blob.arrayBuffer();
-  //     const uint8Array = new Uint8Array(arrayBuffer);
-  //     chunk.hash = await md5(uint8Array);
-  //     console.log(chunk.hash);
-  //     count++;
-  //     if (count === len) {
-  //       emitter.emit('chunks', [chunk]);
-  //     }
-  //   });
-  //   console.log(1, chunks[0].hash);
-  // }
+  calcHash(chunks: Chunk[], emitter: EventEmitter<'chunks'>): void {
+    const len = chunks.length;
+    let count = 0;
+    chunks.forEach(async (chunk) => {
+      const arrayBuffer = await chunk.blob.arrayBuffer();
+      const uint8Array = new Uint8Array(arrayBuffer);
+      chunk.hash = await md5(uint8Array);
+      console.log(chunk.hash);
+      count++;
+      if (count === len) {
+        emitter.emit('chunks', [chunk]);
+      }
+    });
+    console.log(1, chunks[0].hash);
+  }
+
+  async calcSingleHash(chunk: Chunk): Promise<Chunk> {
+    const arrayBuffer = await chunk.blob.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
+    chunk.hash = await md5(uint8Array);
+    return chunk;
+  }
 
   calcAll() {
     this.calcHash(this.chunks, new EventEmitter<'chunks'>());
   }
 
-  calcHash(chunks: Chunk[], emitter: EventEmitter<'chunks'>): void {
-    const spark = new SparkMD5.ArrayBuffer();
-    let processed = 0;
+  // calcHash(chunks: Chunk[], emitter: EventEmitter<'chunks'>): void {
+  //   const spark = new SparkMD5.ArrayBuffer();
+  //   let processed = 0;
 
-    const processChunk = (chunk: Chunk) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        spark.append(e.target?.result as ArrayBuffer);
-        processed++;
+  //   const processChunk = (chunk: Chunk) => {
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       spark.append(e.target?.result as ArrayBuffer);
+  //       processed++;
 
-        if (processed === chunks.length) {
-          this.hash = spark.end();
-          console.log('hash: ', this.hash);
-          this.emit('wholeHash', this.hash);
-          this.emit('drain');
-        }
-      };
-      reader.readAsArrayBuffer(chunk.blob);
-    };
-    chunks.forEach(processChunk);
-  }
+  //       if (processed === chunks.length) {
+  //         this.hash = spark.end();
+  //         console.log('hash: ', this.hash);
+  //         this.emit('wholeHash', this.hash);
+  //         this.emit('drain');
+  //       }
+  //     };
+  //     reader.readAsArrayBuffer(chunk.blob);
+  //   };
+  //   chunks.forEach(processChunk);
+  // }
 
   dispose(): void {
     this.chunks = [];

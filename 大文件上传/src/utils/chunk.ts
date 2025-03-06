@@ -1,5 +1,4 @@
 import SparkMD5 from 'spark-md5';
-import { IDataType, md5 } from 'hash-wasm';
 
 export interface Chunk {
   blob: Blob; // 分片的二进制数据
@@ -27,34 +26,15 @@ export function createChunk(
   };
 }
 
-// function fn(f: IDataType) {
-//   return f;
-// }
-// const c = '' as unknown as Blob;
-
-// fn(c);
-
 // 计算chunk的hash值
-export async function calcChunkHash(chunk: Chunk): Promise<string> {
-  return await md5(chunk.blob);
-  // return new Promise((resolve) => {
-  //   const spark = new SparkMD5.ArrayBuffer();
-  //   const fileReader = new FileReader();
-  //   fileReader.onload = (e) => {
-  //     spark.append(e.target?.result as ArrayBuffer);
-  //     resolve(spark.end());
-  //   };
-  //   fileReader.readAsArrayBuffer(chunk.blob);
-  // });
+export function calcChunkHash(chunk: Chunk): Promise<string> {
+  return new Promise((resolve) => {
+    const spark = new SparkMD5.ArrayBuffer();
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      spark.append(e.target?.result as ArrayBuffer);
+      resolve(spark.end());
+    };
+    fileReader.readAsArrayBuffer(chunk.blob);
+  });
 }
-// export function calcChunkHash(chunk: Chunk): Promise<string> {
-//   return new Promise((resolve) => {
-//     const spark = new SparkMD5.ArrayBuffer();
-//     const fileReader = new FileReader();
-//     fileReader.onload = (e) => {
-//       spark.append(e.target?.result as ArrayBuffer);
-//       resolve(spark.end());
-//     };
-//     fileReader.readAsArrayBuffer(chunk.blob);
-//   });
-// }

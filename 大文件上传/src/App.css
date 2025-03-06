@@ -24,3 +24,9 @@ body {
   font-weight: 400;
   opacity: 0.5;
 }
+
+.drag-area {
+  width: 100px;
+  height: 100px;
+  border: 1px dashed #fff;
+}
