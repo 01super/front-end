@@ -10,20 +10,26 @@ module.exports = {
   },
   resolve: {
     // import 查找文件时的后缀
-    extensions: ['.ts', '.js']
+    extensions: [".ts", ".js"],
   },
   module: {
     rules: [
-        {
-            test: /.ts$/,
-            use: {
-                loader: 'ts-loader'
-            }
-        }
+      {
+        test: /.ts$/,
+        use: {
+          loader: "ts-loader",
+        },
+      },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ template: "./public/index.html" }),
   ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "./public"),
+    },
+    open: true,
+  },
 };

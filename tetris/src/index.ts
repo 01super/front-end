@@ -1,12 +1,8 @@
 import { Square } from "./core/Square";
+import SquareConsoleViewer from "./core/viewer/SquareConsoleViewer";
+import $ from "jquery";
 
-function fn(name: number) {
-    console.log(name, arguments);
-}
-
-fn(1)
-
-const sq = new Square({x:1,y:2}, '');
-console.log('sq: ', sq);
-// sq.point.x = 23
-// sq.color = 12
+const sq = new Square({ x: 1, y: 2 }, "red");
+sq.viewer = new SquareConsoleViewer(sq, $("#container"));
+sq.point = { x: 23, y: 24 };
+console.log(sq.point, sq.color);
