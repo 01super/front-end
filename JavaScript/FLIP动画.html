@@ -29,10 +29,11 @@
     <button class="btn" id="btn">重排</button>
     <ul class="box"></ul>
     <script>
-      const getTops = els => {
+      const getTops = (els) => {
         const positions = {};
-        Array.from(els).forEach(el => {
-          positions[el.id] = el.getBoundingClientRect().top;
+        Array.from(els).forEach((el) => {
+          positions[el.id] = el.offsetTop;
+          // console.log(el.offsetParent);
         });
         return positions;
       };
@@ -71,10 +72,10 @@
       ];
       const box = document.querySelector(".box");
 
-      const render = content => {
+      const render = (content) => {
         box.innerHTML = content
           .map(
-            item =>
+            (item) =>
               `<li style='color: ${item.color}' id=${item.id}>${item.text}</li>`
           )
           .join("");
@@ -96,14 +97,14 @@
         const lastPositions = getTops(lis2);
         console.log("lastPositions: ", lastPositions);
         // Invert 移动元素到 first 的位置
-        Object.keys(firstPositions).forEach(key => {
+        Object.keys(firstPositions).forEach((key) => {
           const el = document.getElementById(key);
           const positionY = firstPositions[key] - lastPositions[key];
           el.style.transform = `translateY(${positionY}px)`;
           requestAnimationFrame(() => {
             el.style.transition = "transform 0.5s ease-in-out";
             el.style.transform = `translateY(0)`;
-          });
+          }, 0);
         });
       });
     </script>

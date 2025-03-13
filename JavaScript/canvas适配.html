@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input
+      type="file"
+      accept="image/*"
+      id="input"
+      onchange="handleChange(this)"
+    />
+    <img id="img" />
+    <canvas id="canvas"></canvas>
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const dpr = window.devicePixelRatio;
+
+      const imgElement = document.getElementById("img");
+
+      const handleChange = (e) => {
+        console.log(e.files);
+        const file = e.files[0];
+
+        if (!file) return;
+
+        // 创建一个FileReader对象来读取文件
+        const reader = new FileReader();
+
+        // 当文件读取完成后的处理函数
+        reader.onload = function (event) {
+          // 设置图片源为读取的文件数据
+          imgElement.src = event.target.result;
+
+          // 可选：当图片加载完成后，也可以将其绘制到canvas上
+          imgElement.onload = function (img) {
+            console.log(img);
+            const imgWidth = img.target.width;
+            const imgHeight = img.target.height;
+            canvas.style.width = imgWidth + "px";
+            canvas.style.height = imgHeight + "px";
+            canvas.width = imgWidth * dpr;
+            canvas.height = imgHeight * dpr;
+            // 在canvas上绘制图片
+            ctx.drawImage(imgElement, 0, 0, imgWidth * dpr, imgHeight * dpr);
+            ctx.scale(dpr, dpr);
+          };
+        };
+
+        // 以DataURL的形式读取文件
+        reader.readAsDataURL(file);
+      };
+    </script>
+  </body>
+</html>

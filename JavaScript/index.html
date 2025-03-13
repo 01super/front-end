@@ -1,25 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>test</title>
-</head>
-<body>
-<!--<script src="./class和继承.js"></script>-->
-<!-- <script src="./闭包.js"></script> -->
-<!-- <script src="./this指向.js"></script> -->
-<!--<script src="./微任务比宏任务执行时机更早.js"></script>-->
-<!-- <script src="实现call.js"></script> -->
-<!--<script src="./设计模式.js"></script>-->
-<!--<script src="01.原型链继承.js"></script>-->
-<!--<script src="02.借用构造函数继承.js"></script>-->
-<!--<script src="03.原型式继承.js"></script>-->
-<!--<script src="05.寄生组合式继承.js"></script>-->
-<!-- <script src="参数作用域.js"></script> -->
-<!-- <script src="myBind.js"></script> -->
-<!-- <script src="requestAnimationFrame加MessageChannel实现requestIdleCallback.js"></script> -->
-<script src="generator生成器.js"></script>
-</body>
+  </head>
+  <body>
+    <!--<script src="./class和继承.js"></script>-->
+    <!-- <script src="./闭包.js"></script> -->
+    <!-- <script src="./this指向.js"></script> -->
+    <!--<script src="./微任务比宏任务执行时机更早.js"></script>-->
+    <!-- <script src="实现call.js"></script> -->
+    <!--<script src="./设计模式.js"></script>-->
+    <!--<script src="01.原型链继承.js"></script>-->
+    <!--<script src="02.借用构造函数继承.js"></script>-->
+    <!--<script src="03.原型式继承.js"></script>-->
+    <!--<script src="05.寄生组合式继承.js"></script>-->
+    <!-- <script src="参数作用域.js"></script> -->
+    <!-- <script src="myBind.js"></script> -->
+    <!-- <script src="requestAnimationFrame加MessageChannel实现requestIdleCallback.js"></script> -->
+    <script src="generator生成器.js"></script>
+    <div>
+      <span>123</span>
+    </div>
+    <script>
+      const span = document.querySelector("span");
+      span.addEventListener("click", () => {
+        // Get the width of the span element
+        const spanWidth = span.offsetWidth;
+        console.log("Span width 1:", spanWidth);
+        span.innerHTML = "123123";
+        const spanWidth2 = span.offsetWidth;
+        // 能获取到 span 内容改变后的宽度
+        console.log("Span width 2:", spanWidth2);
+        alert("123");
+        // alert 会阻塞页面渲染，所以点击 alert 的按钮之后，页面才会渲染出 span 的新内容
+      });
+    </script>
+  </body>
 </html>
