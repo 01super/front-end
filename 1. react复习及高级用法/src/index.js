@@ -4,7 +4,7 @@ import App from "./LifeCycle";
 import Event from "./Event";
 import State from "./State";
 import Portals from "./Portals";
-import Login from "./Login";
+// import Login from "./Login";
 
 // 抽离公共逻辑的两中方法：高阶组件和render props ↓↓↓↓↓↓↓
 import HOC from "./HOC";
@@ -27,7 +27,7 @@ ReactDOM.render(
     {/* 如果内部没有第一步透传所有 props，则上面的标签上面的 name 属性便取不到 */}
     {/* <HOC name="HOC" /> */}
     {/* <RenderProps name="HOC" /> */}
-    <Login />
+    {/* <Login /> */}
   </React.StrictMode>,
   document.getElementById("root")
 );
