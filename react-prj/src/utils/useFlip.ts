@@ -7,6 +7,8 @@ const handleTransitionEnd = (e: TransitionEvent) => {
 
 const useFlip = (
   domContainerRef: React.RefObject<HTMLElement>,
+  // 依赖项, 当依赖项变化时，会重新执行useEffect,
+  // 如果依赖项为空，则每次渲染都会执行一次，性能会差一点
   effectDataList?: unknown[]
 ) => {
   const positionRef = useRef<{ [key: string]: number }>({});
@@ -35,6 +37,7 @@ const useFlip = (
         positionRef.current[id] = element.offsetTop;
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     effectDataList ? [...effectDataList, domContainerRef] : undefined
   );
 
@@ -54,6 +57,7 @@ const useFlip = (
         });
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     effectDataList ? [...effectDataList, domContainerRef] : undefined
   );
 };
