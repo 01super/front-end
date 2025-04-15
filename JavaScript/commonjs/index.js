@@ -1,10 +1,11 @@
-console.clear();
-console.log(arguments[0] === module.exports);
-console.log(arguments[1] === require);
-console.log(arguments[2] === module);
-console.log(arguments[3] === __filename);
-console.log(arguments[4] === __dirname);
-console.log(arguments);
+// console.clear();
+// console.log("require.cache", require.length);
+// console.log(arguments[0] === module.exports);
+// console.log(arguments[1] === require);
+// console.log(arguments[2] === module);
+// console.log(arguments[3] === __filename);
+// console.log(arguments[4] === __dirname);
+// console.log(arguments);
 // require 实现的伪代码
 function _require(path) {
   let cache = false;
@@ -37,3 +38,29 @@ function _require(path) {
     __dirname
   );
 }
+
+// const curry = _require("./函数柯里化.js");
+// curry();
+
+const vm = require("vm");
+const fs = require("fs");
+const path = require("path");
+const filename = path.resolve(__dirname, "./函数柯里化.js");
+const code = fs.readFileSync(filename, "utf-8");
+
+const Module = {
+  wrap: (code) => `(function (code) {
+  return function(export, require, __filename, __dirnem) {
+    ${code}\n
+}
+  })()`,
+};
+
+const wrapper = Module.wrap(code);
+console.log("wrapper: ", wrapper);
+
+const compiledWrapper = vm.runInThisContext(wrapper, {
+  filename,
+});
+console.log("compiledWrapper: ", compiledWrapper);
+// compiledWrapper();
